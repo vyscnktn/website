@@ -2,7 +2,7 @@
 title: "Serverless Portfolio & CI/CD Pipeline"
 description: "A static web platform built from scratch using Astro and AWS Amplify, featuring a fully automated Continuous Deployment (CI/CD) architecture."
 techs: ["Astro", "AWS Amplify", "CI/CD", "Tailwind CSS"]
-githubUrl: "https://github.com/veysicanketen/senin-repo-adin"
+githubUrl: "https://github.com/vyscnktn/website"
 featured: true
 ---
 This project demonstrates the integration of modern web development principles with cloud infrastructure. Instead of relying on traditional server hosting (e.g., EC2), a fully serverless architecture was implemented to ensure high availability and scalability.
