@@ -11,12 +11,16 @@ import { useTranslations } from '../../i18n/ui';
 const lang = 'en';
 const t = useTranslations(lang);
 
-// İçerikleri çekme işlemleri
+// Filter content collections by lang === 'en'
 const allGuides = await getCollection('guides');
-const featuredGuides = allGuides.filter(guide => guide.data.featured).slice(0, 3);
+const featuredGuides = allGuides
+  .filter(guide => (guide.data.lang || 'tr') === 'en' && guide.data.featured)
+  .slice(0, 3);
 
 const allProjects = await getCollection('projects');
-const featuredProjects = allProjects.filter(project => project.data.featured).slice(0, 3);
+const featuredProjects = allProjects
+  .filter(project => (project.data.lang || 'tr') === 'en' && project.data.featured)
+  .slice(0, 3);
 ---
 
 <Layout 
@@ -41,8 +45,9 @@ const featuredProjects = allProjects.filter(project => project.data.featured).sl
             title={guide.data.title}
             description={guide.data.description}
             category={guide.data.category}
-            slug={guide.id} 
+            slug={guide.id.replace('-en', '')} 
             readTime={guide.data.readTime}
+            lang={lang}
           />
         ))}
       </div>
@@ -63,6 +68,7 @@ const featuredProjects = allProjects.filter(project => project.data.featured).sl
             githubUrl={project.data.githubUrl}
             demoUrl={project.data.demoUrl}
             status={project.data.status}
+            lang={lang}
           />
         ))}
       </div>
@@ -116,7 +122,7 @@ const featuredProjects = allProjects.filter(project => project.data.featured).sl
             <div class="w-10 h-10 rounded-xl bg-sky-500/10 border border-sky-500/20 flex items-center justify-center text-sky-400 font-bold">
               ☁️
             </div>
-            <h4 class="font-bold text-slate-100 text-lg">{t('about.card2Title')}</h4>
+            <h4 class="font-bold text-slate-100 text-lg">{t('about.card1Title')}</h4>
             <p class="text-slate-400 text-sm leading-relaxed">
               {t('about.card2Desc')}
             </p>

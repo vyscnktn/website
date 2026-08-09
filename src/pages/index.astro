@@ -11,12 +11,16 @@ import { useTranslations } from '../i18n/ui';
 const lang = 'tr';
 const t = useTranslations(lang);
 
-// İçerikleri çekme işlemleri
+// İçerikleri çekme ve dille filtreleme işlemleri
 const allGuides = await getCollection('guides');
-const featuredGuides = allGuides.filter(guide => guide.data.featured).slice(0, 3);
+const featuredGuides = allGuides
+  .filter(guide => (guide.data.lang || 'tr') === 'tr' && guide.data.featured)
+  .slice(0, 3);
 
 const allProjects = await getCollection('projects');
-const featuredProjects = allProjects.filter(project => project.data.featured).slice(0, 3);
+const featuredProjects = allProjects
+  .filter(project => (project.data.lang || 'tr') === 'tr' && project.data.featured)
+  .slice(0, 3);
 ---
 
 <Layout 
@@ -43,6 +47,7 @@ const featuredProjects = allProjects.filter(project => project.data.featured).sl
             category={guide.data.category}
             slug={guide.id} 
             readTime={guide.data.readTime}
+            lang={lang}
           />
         ))}
       </div>
@@ -63,6 +68,7 @@ const featuredProjects = allProjects.filter(project => project.data.featured).sl
             githubUrl={project.data.githubUrl}
             demoUrl={project.data.demoUrl}
             status={project.data.status}
+            lang={lang}
           />
         ))}
       </div>

@@ -1,14 +1,20 @@
 ---
+import { useTranslations } from '../i18n/ui';
+
 interface Props {
   title: string;
   description: string;
   category: string;
   slug: string;
   readTime?: string;
+  lang?: 'tr' | 'en';
 }
-const { title, description, category, slug, readTime = "5 dk okuma" } = Astro.props;
+const { title, description, category, slug, readTime = "5 dk okuma", lang = "tr" } = Astro.props;
+const t = useTranslations(lang);
+
+const href = lang === 'en' ? `/en/guides/${slug}` : `/guides/${slug}`;
 ---
-<a href={`/guides/${slug}`} class="block group h-full">
+<a href={href} class="block group h-full">
   <div class="glass-card p-6 md:p-7 rounded-2xl transition-all duration-300 h-full flex flex-col justify-between hover:-translate-y-1 relative overflow-hidden">
     <!-- Top subtle glow highlight on hover -->
     <div class="absolute top-0 right-0 w-32 h-32 bg-emerald-500/5 rounded-full blur-2xl group-hover:bg-emerald-500/15 transition-all duration-500"></div>
@@ -35,7 +41,7 @@ const { title, description, category, slug, readTime = "5 dk okuma" } = Astro.pr
 
     <div class="pt-4 border-t border-slate-800/60 flex items-center justify-between">
       <span class="text-emerald-400 text-sm font-semibold inline-flex items-center gap-1.5 group-hover:text-emerald-300 transition-colors">
-        Rehberi Oku 
+        {t('card.readGuide')} 
         <svg class="w-4 h-4 group-hover:translate-x-1.5 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
       </span>
     </div>

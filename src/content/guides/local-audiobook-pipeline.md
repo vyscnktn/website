@@ -5,6 +5,7 @@ category: "AI Araçları"
 date: 2026-08-03
 readTime: "7 dk okuma"
 featured: true
+lang: "tr"
 ---
 
 Uzun belgelerin ve kitapların seslendirilmesi genellikle API maliyeti yüksek bulut hizmetlerine, devasa GPU altyapılarına veya manuel ses üretim süreçlerine bağımlıdır. 

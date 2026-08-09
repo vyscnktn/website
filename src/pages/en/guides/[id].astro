@@ -1,13 +1,13 @@
 ---
 import { getCollection, render } from 'astro:content';
-import Layout from '../../layouts/Layout.astro';
+import Layout from '../../../layouts/Layout.astro';
 
-// 1. Türkçe rehberleri çek ve rotalarını oluştur
+// 1. Fetch English guides and build routes
 export async function getStaticPaths() {
   const guides = await getCollection('guides');
-  const trGuides = guides.filter(guide => (guide.data.lang || 'tr') === 'tr');
-  return trGuides.map(guide => ({
-    params: { id: guide.id },
+  const enGuides = guides.filter(guide => (guide.data.lang || 'tr') === 'en');
+  return enGuides.map(guide => ({
+    params: { id: guide.id.replace('-en', '') },
     props: { guide },
   }));
 }
@@ -17,26 +17,26 @@ const { Content } = await render(guide);
 ---
 
 <Layout 
-  lang="tr"
+  lang="en"
   title={`${guide.data.title} | Veysi Can Keten`}
   description={guide.data.description}
 >
   <div class="max-w-4xl mx-auto px-6 py-12 md:py-20">
     
-    <!-- Geri Dön Butonu -->
-    <a href="/#guides" class="text-emerald-400 hover:text-emerald-300 mb-10 inline-flex items-center gap-2 transition-colors font-semibold group">
+    <!-- Back to Guides Button -->
+    <a href="/en#guides" class="text-emerald-400 hover:text-emerald-300 mb-10 inline-flex items-center gap-2 transition-colors font-semibold group">
       <svg class="w-5 h-5 group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
-      Tüm Rehberlere Dön
+      Back to All Guides
     </a>
     
-    <!-- Rehber Başlığı -->
+    <!-- Guide Header -->
     <header class="mb-12 border-b border-slate-800/80 pb-8">
       <div class="flex items-center gap-3 mb-4">
         <span class="px-3 py-1 rounded-md bg-emerald-500/10 border border-emerald-500/20 text-xs font-bold text-emerald-400 uppercase tracking-widest font-mono">
           {guide.data.category}
         </span>
         <span class="text-xs text-slate-400 font-mono">
-          {new Date(guide.data.date).toLocaleDateString('tr-TR', { year: 'numeric', month: 'long', day: 'numeric' })}
+          {new Date(guide.data.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
         </span>
       </div>
 
@@ -49,7 +49,7 @@ const { Content } = await render(guide);
       </p>
     </header>
 
-    <!-- Markdown İçeriği -->
+    <!-- Markdown Article Content -->
     <article class="markdown-body glass-card p-6 md:p-10 rounded-3xl">
       <Content />
     </article>
@@ -58,9 +58,9 @@ const { Content } = await render(guide);
 </Layout>
 
 <style is:global>
-  @reference "../../styles/global.css";
+  @reference "../../../styles/global.css";
 
-  /* Markdown (Prose) Stilleri */
+  /* Markdown (Prose) Styles */
   .markdown-body h2 { @apply text-2xl md:text-3xl font-bold text-slate-100 mt-10 mb-5 border-b border-slate-800 pb-3 leading-snug; }
   .markdown-body h3 { @apply text-xl md:text-2xl font-bold text-slate-100 mt-8 mb-4 leading-snug; }
   .markdown-body p { @apply text-slate-300 text-base md:text-lg leading-relaxed mb-6 font-normal; }
