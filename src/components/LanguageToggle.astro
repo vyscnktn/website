@@ -1,0 +1,35 @@
+---
+interface Props {
+  currentLang?: 'tr' | 'en';
+}
+
+const { currentLang = 'tr' } = Astro.props;
+
+const trUrl = '/';
+const enUrl = '/en';
+---
+
+<div class="inline-flex items-center p-1 rounded-xl glass-card border border-slate-800 text-xs font-mono font-bold">
+  <a 
+    href={trUrl} 
+    class={`px-2.5 py-1 rounded-lg transition-all duration-200 ${
+      currentLang === 'tr' 
+        ? 'bg-emerald-500 text-slate-950 shadow-md shadow-emerald-500/20' 
+        : 'text-slate-400 hover:text-slate-100'
+    }`}
+    aria-label="Türkçe Dilini Seç"
+  >
+    TR
+  </a>
+  <a 
+    href={enUrl} 
+    class={`px-2.5 py-1 rounded-lg transition-all duration-200 ${
+      currentLang === 'en' 
+        ? 'bg-emerald-500 text-slate-950 shadow-md shadow-emerald-500/20' 
+        : 'text-slate-400 hover:text-slate-100'
+    }`}
+    aria-label="Select English Language"
+  >
+    EN
+  </a>
+</div>

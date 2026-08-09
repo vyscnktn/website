@@ -1,14 +1,14 @@
 ---
 import { getCollection } from 'astro:content';
-import Layout from '../layouts/Layout.astro';
-import Hero from '../components/Hero.astro';
-import Section from '../components/Section.astro';
-import GuideCard from '../components/GuideCard.astro';
-import ProjectCard from '../components/ProjectCard.astro';
-import CopyEmailButton from '../components/CopyEmailButton.astro';
-import { useTranslations } from '../i18n/ui';
+import Layout from '../../layouts/Layout.astro';
+import Hero from '../../components/Hero.astro';
+import Section from '../../components/Section.astro';
+import GuideCard from '../../components/GuideCard.astro';
+import ProjectCard from '../../components/ProjectCard.astro';
+import CopyEmailButton from '../../components/CopyEmailButton.astro';
+import { useTranslations } from '../../i18n/ui';
 
-const lang = 'tr';
+const lang = 'en';
 const t = useTranslations(lang);
 
 // İçerikleri çekme işlemleri
@@ -21,8 +21,8 @@ const featuredProjects = allProjects.filter(project => project.data.featured).sl
 
 <Layout 
   lang={lang}
-  title="Veysi Can Keten | Yapay Zeka & Bulut Mimarı"
-  description="Yapay zeka araçları, bulut mimarileri ve açık kaynak sistem rehberleri."
+  title="Veysi Can Keten | AI & Cloud Systems Architect"
+  description="AI tools, cloud infrastructure architectures, and open-source system blueprints."
 >
   <div class="max-w-6xl mx-auto px-6 md:px-8">
     

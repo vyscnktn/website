@@ -1,9 +1,13 @@
 ---
+import { useTranslations } from '../i18n/ui';
+
 interface Props {
   email?: string;
   variant?: 'primary' | 'secondary' | 'glass';
+  lang?: 'tr' | 'en';
 }
-const { email = "veysicanketen@gmail.com", variant = "glass" } = Astro.props;
+const { email = "veysicanketen@gmail.com", variant = "glass", lang = "tr" } = Astro.props;
+const t = useTranslations(lang);
 
 const baseStyles = "relative inline-flex items-center gap-2 px-5 py-2.5 rounded-xl font-semibold text-sm transition-all duration-300 group cursor-pointer";
 const variantStyles = {
@@ -16,13 +20,15 @@ const variantStyles = {
 <button 
   id="copy-email-btn"
   data-email={email}
+  data-text-default={t('btn.copyEmail')}
+  data-text-copied={t('btn.copied')}
   class={`${baseStyles} ${variantStyles}`}
-  aria-label="E-posta Adresini Kopyala"
+  aria-label={t('btn.copyEmail')}
 >
   <svg class="w-4 h-4 text-emerald-400 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 002-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
   </svg>
-  <span id="copy-text">E-postayı Kopyala</span>
+  <span id="copy-text">{t('btn.copyEmail')}</span>
 </button>
 
 <!-- Toast notification element -->
@@ -31,7 +37,7 @@ const variantStyles = {
     <svg class="w-5 h-5 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path>
     </svg>
-    <span>E-posta adresi panoya kopyalandı!</span>
+    <span>{t('toast.emailCopied')}</span>
   </div>
 </div>
 
@@ -43,21 +49,23 @@ const variantStyles = {
   if (copyBtn && copyToast) {
     copyBtn.addEventListener('click', async () => {
       const email = copyBtn.getAttribute('data-email') || 'veysicanketen@gmail.com';
+      const textDefault = copyBtn.getAttribute('data-text-default') || 'Copy Email';
+      const textCopied = copyBtn.getAttribute('data-text-copied') || 'Copied!';
       try {
         await navigator.clipboard.writeText(email);
-        if (copyText) copyText.textContent = 'Kopyalandı!';
+        if (copyText) copyText.textContent = textCopied;
         
         // Show Toast
         copyToast.classList.remove('translate-y-10', 'opacity-0');
         copyToast.classList.add('translate-y-0', 'opacity-100');
 
         setTimeout(() => {
-          if (copyText) copyText.textContent = 'E-postayı Kopyala';
+          if (copyText) copyText.textContent = textDefault;
           copyToast.classList.remove('translate-y-0', 'opacity-100');
           copyToast.classList.add('translate-y-10', 'opacity-0');
         }, 3000);
       } catch (err) {
-        console.error('Kopyalama hatası:', err);
+        console.error('Copy error:', err);
       }
     });
   }

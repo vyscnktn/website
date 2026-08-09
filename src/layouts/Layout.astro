@@ -7,15 +7,21 @@ interface Props {
   title?: string;
   description?: string;
   image?: string;
+  lang?: 'tr' | 'en';
 }
 
 const {
   title = "Veysi Can Keten | Yapay Zeka & Bulut Mimarı",
   description = "Yapay zeka sistemleri, bulut mimarileri ve açık kaynak yazılımlar üzerine teknik rehberler ve projeler.",
-  image = "/favicon.svg"
+  image = "/favicon.svg",
+  lang = "tr"
 } = Astro.props;
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://vyscnktn.com');
+
+// Alternate URLs for i18n hreflang
+const alternateTr = new URL('/', canonicalURL.origin);
+const alternateEn = new URL('/en', canonicalURL.origin);
 
 // Schema.org JSON-LD Person & WebSite
 const personSchema = JSON.stringify({
@@ -23,7 +29,7 @@ const personSchema = JSON.stringify({
   "@type": "Person",
   "name": "Veysi Can Keten",
   "url": canonicalURL.origin,
-  "jobTitle": "AI Architecture & Cloud Systems Student",
+  "jobTitle": lang === 'en' ? "AI Architecture & Cloud Systems Student" : "Yapay Zeka & Bulut Sistemleri Öğrencisi",
   "description": description,
   "sameAs": [
     "https://github.com/vyscnktn",
@@ -42,7 +48,7 @@ const websiteSchema = JSON.stringify({
 ---
 
 <!html>
-<html lang="tr" class="scroll-smooth">
+<html lang={lang} class="scroll-smooth">
   <head>
     <meta charset="utf-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -52,8 +58,11 @@ const websiteSchema = JSON.stringify({
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
-    <!-- Canonical URL -->
+    <!-- Canonical & hreflang URLs -->
     <link rel="canonical" href={canonicalURL} />
+    <link rel="alternate" hreflang="tr" href={alternateTr} />
+    <link rel="alternate" hreflang="en" href={alternateEn} />
+    <link rel="alternate" hreflang="x-default" href={alternateTr} />
 
     <!-- Primary Meta Tags -->
     <title>{title}</title>
@@ -87,12 +96,12 @@ const websiteSchema = JSON.stringify({
     <div class="fixed top-0 left-1/4 w-[500px] h-[500px] bg-emerald-500/10 rounded-full blur-[140px] pointer-events-none z-0"></div>
     <div class="fixed top-1/3 right-1/4 w-[600px] h-[600px] bg-sky-500/10 rounded-full blur-[160px] pointer-events-none z-0"></div>
 
-    <Navbar />
+    <Navbar lang={lang} />
 
     <main class="flex-grow z-10">
       <slot />
     </main>
 
-    <Footer />
+    <Footer lang={lang} />
   </body>
 </html>
