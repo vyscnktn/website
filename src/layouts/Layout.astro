@@ -1,0 +1,56 @@
+---
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = "Veysi Can Keten | Yapay Zeka & Bulut Mimarı",
+  description = "Yapay zeka sistemleri, bulut mimarileri ve açık kaynak yazılımlar üzerine teknik rehberler ve projeler."
+} = Astro.props;
+---
+
+<!html>
+<html lang="tr" class="scroll-smooth">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <!-- Primary Meta Tags -->
+    <title>{title}</title>
+    <meta name="title" content={title} />
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#020617" />
+
+    <!-- Open Graph / Facebook / LinkedIn -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:title" content={title} />
+    <meta property="twitter:description" content={description} />
+  </head>
+
+  <body class="bg-slate-950 text-slate-100 antialiased selection:bg-emerald-500 selection:text-slate-950 min-h-screen flex flex-col relative overflow-x-hidden">
+    
+    <!-- Ambient Background Gradients -->
+    <div class="fixed inset-0 bg-ambient-grid pointer-events-none opacity-40 z-0"></div>
+    <div class="fixed top-0 left-1/4 w-[500px] h-[500px] bg-emerald-500/10 rounded-full blur-[140px] pointer-events-none z-0"></div>
+    <div class="fixed top-1/3 right-1/4 w-[600px] h-[600px] bg-sky-500/10 rounded-full blur-[160px] pointer-events-none z-0"></div>
+
+    <Navbar />
+
+    <main class="flex-grow z-10">
+      <slot />
+    </main>
+
+    <Footer />
+  </body>
+</html>

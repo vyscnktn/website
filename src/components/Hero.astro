@@ -1,34 +1,74 @@
 ---
 import { Image } from 'astro:assets';
-// Görselin adını ve uzantısını kendi dosyana göre güncelle
 import profilImage from '../assets/profil.jpg'; 
 ---
-<section class="min-h-[75vh] flex flex-col-reverse md:flex-row items-center justify-between py-20 gap-12">
-  <div class="flex-1 space-y-6">
-    <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold text-slate-50 tracking-tight leading-tight">
-      Merhaba, ben <span class="text-emerald-400">Veysi Can</span>.
+<section class="min-h-[80vh] flex flex-col-reverse md:flex-row items-center justify-between py-16 md:py-24 gap-12 relative">
+  
+  <!-- Content Side -->
+  <div class="flex-1 space-y-6 text-center md:text-left">
+    
+    <!-- Top Pill Badge -->
+    <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-card border border-emerald-500/30 text-emerald-400 text-xs md:text-sm font-semibold tracking-wide font-mono shadow-inner shadow-emerald-500/10">
+      <span class="text-base">🚀</span>
+      <span>Yapay Zeka Mimarileri & Bulut Sistemleri</span>
+    </div>
+
+    <!-- Main Title -->
+    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-slate-100 tracking-tight leading-[1.15]">
+      Merhaba, ben <br class="hidden sm:inline" />
+      <span class="gradient-text">Veysi Can Keten</span>.
     </h1>
-    <p class="text-lg md:text-xl text-slate-300 max-w-2xl leading-relaxed">
-      Yapay zeka araçları geliştiriyor, bulut mimarileri kuruyor ve içerikler üretiyorum. Edindiğim teknik tecrübeleri ve oluşturduğum sistemlerin rehberlerini burada paylaşıyorum.
+
+    <!-- Subtitle / Bio summary -->
+    <p class="text-slate-300 text-base sm:text-lg md:text-xl max-w-2xl leading-relaxed font-normal">
+      Yapay zeka araçları geliştiriyor, bulut altyapıları tasarlıyor ve üretim ortamına yönelik teknik rehberler yayınlıyorum. 
     </p>
-    <div class="flex flex-wrap gap-4 pt-4">
-      <a href="#guides" class="px-7 py-3.5 bg-emerald-500 text-slate-950 font-bold rounded-xl hover:bg-emerald-400 transition-colors shadow-lg shadow-emerald-500/20">
-        Rehberleri Keşfet
+
+    <!-- CTAs & Action buttons -->
+    <div class="flex flex-wrap items-center justify-center md:justify-start gap-4 pt-4">
+      <a 
+        href="#guides" 
+        class="px-8 py-4 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold rounded-xl transition-all duration-300 shadow-xl shadow-emerald-500/25 hover:shadow-emerald-400/40 hover:-translate-y-0.5 inline-flex items-center gap-2"
+      >
+        <span>Rehberleri Keşfet</span>
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
       </a>
-      <a href="#projects" class="px-7 py-3.5 border-2 border-slate-700 text-slate-200 font-bold rounded-xl hover:bg-slate-800 hover:text-white transition-colors">
-        Projeleri Gör
+      
+      <a 
+        href="#projects" 
+        class="px-8 py-4 glass-card text-slate-200 hover:text-white font-bold rounded-xl hover:border-slate-600 transition-all duration-300 hover:-translate-y-0.5 inline-flex items-center gap-2"
+      >
+        <span>Projeleri İncele</span>
+        <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
       </a>
+    </div>
+
+    <!-- Quick Tech Badge Strip -->
+    <div class="pt-6 flex items-center justify-center md:justify-start gap-3 text-xs font-mono text-slate-400">
+      <span class="text-slate-500 font-sans">Odak:</span>
+      <span class="px-2.5 py-1 rounded-md bg-slate-900 border border-slate-800 text-slate-300">Python</span>
+      <span class="px-2.5 py-1 rounded-md bg-slate-900 border border-slate-800 text-slate-300">AWS</span>
+      <span class="px-2.5 py-1 rounded-md bg-slate-900 border border-slate-800 text-slate-300">PyTorch</span>
+      <span class="px-2.5 py-1 rounded-md bg-slate-900 border border-slate-800 text-slate-300">Astro</span>
     </div>
   </div>
   
-  <div class="w-56 h-56 md:w-72 md:h-72 rounded-full bg-gradient-to-tr from-emerald-500 to-orange-500 p-1 flex-shrink-0">
-    <div class="w-full h-full bg-slate-950 rounded-full flex items-center justify-center overflow-hidden relative group">
-      <!-- Optimizasyonlu Görsel Bileşeni -->
-      <Image 
-        src={profilImage} 
-        alt="Veysi Can Keten" 
-        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 grayscale-[20%] group-hover:grayscale-0"
-      />
+  <!-- Profile Visual Side -->
+  <div class="relative flex-shrink-0">
+    <!-- Ambient Glow behind avatar -->
+    <div class="absolute inset-0 bg-gradient-to-tr from-emerald-500/30 to-sky-500/30 rounded-full blur-2xl transform scale-110"></div>
+    
+    <!-- Profile Container -->
+    <div class="w-64 h-64 sm:w-72 sm:h-72 lg:w-80 lg:h-80 rounded-3xl bg-gradient-to-tr from-emerald-500 via-teal-400 to-sky-500 p-[2px] shadow-2xl shadow-emerald-500/20 relative group">
+      <div class="w-full h-full bg-slate-950 rounded-[22px] overflow-hidden relative">
+        <Image 
+          src={profilImage} 
+          alt="Veysi Can Keten" 
+          class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
+        />
+        <!-- Inner glass gradient overlay -->
+        <div class="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent opacity-60 group-hover:opacity-30 transition-opacity duration-500"></div>
+      </div>
     </div>
   </div>
 </section>

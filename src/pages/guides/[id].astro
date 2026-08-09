@@ -1,6 +1,6 @@
 ---
 import { getCollection, render } from 'astro:content';
-import '../../styles/global.css';
+import Layout from '../../layouts/Layout.astro';
 
 // 1. Klasördeki tüm rehberleri bul ve sayfalarını oluştur
 export async function getStaticPaths() {
@@ -16,52 +16,61 @@ const { guide } = Astro.props;
 const { Content } = await render(guide);
 ---
 
-<html lang="tr" class="scroll-smooth">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{guide.data.title} | Veysi Can Keten</title>
-    <meta name="description" content={guide.data.description} />
-  </head>
-  <body class="bg-slate-950 text-slate-50 font-sans antialiased">
-    <main class="max-w-3xl mx-auto px-6 py-20">
-      
-      <!-- Geri Dön Butonu -->
-      <a href="/" class="text-emerald-400 hover:text-emerald-300 mb-10 inline-flex items-center gap-2 transition-colors font-medium">
-        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
-        Anasayfaya Dön
-      </a>
-      
-      <!-- Rehber Başlığı -->
-      <header class="mb-12 border-b border-slate-800 pb-8">
-        <span class="text-orange-400 font-bold tracking-widest uppercase text-sm mb-4 block">{guide.data.category}</span>
-        <h1 class="text-4xl md:text-5xl font-extrabold text-slate-50 mb-6 leading-tight">{guide.data.title}</h1>
-        <p class="text-slate-400 text-lg md:text-xl leading-relaxed">{guide.data.description}</p>
-      </header>
+<Layout 
+  title={`${guide.data.title} | Veysi Can Keten`}
+  description={guide.data.description}
+>
+  <div class="max-w-4xl mx-auto px-6 py-12 md:py-20">
+    
+    <!-- Geri Dön Butonu -->
+    <a href="/#guides" class="text-emerald-400 hover:text-emerald-300 mb-10 inline-flex items-center gap-2 transition-colors font-semibold group">
+      <svg class="w-5 h-5 group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+      Tüm Rehberlere Dön
+    </a>
+    
+    <!-- Rehber Başlığı -->
+    <header class="mb-12 border-b border-slate-800/80 pb-8">
+      <div class="flex items-center gap-3 mb-4">
+        <span class="px-3 py-1 rounded-md bg-emerald-500/10 border border-emerald-500/20 text-xs font-bold text-emerald-400 uppercase tracking-widest font-mono">
+          {guide.data.category}
+        </span>
+        <span class="text-xs text-slate-400 font-mono">
+          {new Date(guide.data.date).toLocaleDateString('tr-TR', { year: 'numeric', month: 'long', day: 'numeric' })}
+        </span>
+      </div>
 
-      <!-- Markdown İçeriği -->
-      <article class="markdown-body">
-        <Content />
-      </article>
+      <h1 class="text-3xl sm:text-4xl md:text-5xl font-extrabold text-slate-50 mb-6 leading-tight">
+        {guide.data.title}
+      </h1>
 
-    </main>
-  </body>
-</html>
+      <p class="text-slate-300 text-lg md:text-xl leading-relaxed font-normal">
+        {guide.data.description}
+      </p>
+    </header>
+
+    <!-- Markdown İçeriği -->
+    <article class="markdown-body glass-card p-6 md:p-10 rounded-3xl">
+      <Content />
+    </article>
+
+  </div>
+</Layout>
 
 <style is:global>
-  /* Tailwind v4 için ana stil dosyasını referans gösteriyoruz */
   @reference "../../styles/global.css";
 
-  /* Tailwind Markdown (Prose) Stilleri */
-  .markdown-body h2 { @apply text-2xl md:text-3xl font-bold text-slate-100 mt-12 mb-6 border-b border-slate-800 pb-2; }
-  .markdown-body h3 { @apply text-xl md:text-2xl font-bold text-slate-100 mt-8 mb-4; }
-  .markdown-body p { @apply text-slate-300 text-lg leading-relaxed mb-6; }
-  .markdown-body ul { @apply list-disc list-outside text-slate-300 mb-6 space-y-2 ml-5 text-lg; }
+  /* Markdown (Prose) Stilleri */
+  .markdown-body h2 { @apply text-2xl md:text-3xl font-bold text-slate-100 mt-10 mb-5 border-b border-slate-800 pb-3 leading-snug; }
+  .markdown-body h3 { @apply text-xl md:text-2xl font-bold text-slate-100 mt-8 mb-4 leading-snug; }
+  .markdown-body p { @apply text-slate-300 text-base md:text-lg leading-relaxed mb-6 font-normal; }
+  .markdown-body ul { @apply list-disc list-outside text-slate-300 mb-6 space-y-2.5 ml-6 text-base md:text-lg; }
+  .markdown-body ol { @apply list-decimal list-outside text-slate-300 mb-6 space-y-2.5 ml-6 text-base md:text-lg; }
   .markdown-body li { @apply pl-1; }
-  .markdown-body code { @apply bg-slate-800/80 text-emerald-400 px-1.5 py-0.5 rounded text-sm font-mono border border-slate-700/50; }
-  .markdown-body pre { @apply bg-slate-900 p-5 rounded-xl overflow-x-auto mb-8 border border-slate-800 shadow-lg shadow-black/20; }
-  .markdown-body pre code { @apply bg-transparent text-slate-300 p-0 text-sm border-0 shadow-none; }
-  .markdown-body a { @apply text-emerald-400 hover:text-emerald-300 hover:underline underline-offset-4 transition-colors; }
-  .markdown-body blockquote { @apply border-l-4 border-emerald-500 bg-emerald-500/5 py-3 pr-4 pl-5 italic text-slate-300 mb-8 rounded-r-lg; }
+  .markdown-body code { @apply bg-slate-900/90 text-emerald-400 px-2 py-0.5 rounded text-sm font-mono border border-slate-800; }
+  .markdown-body pre { @apply bg-slate-950 p-6 rounded-2xl overflow-x-auto mb-8 border border-slate-800/80 shadow-xl shadow-black/40; }
+  .markdown-body pre code { @apply bg-transparent text-slate-200 p-0 text-sm border-0 shadow-none; }
+  .markdown-body a { @apply text-emerald-400 hover:text-emerald-300 hover:underline underline-offset-4 transition-colors font-medium; }
+  .markdown-body blockquote { @apply border-l-4 border-emerald-500 bg-emerald-500/5 py-4 pr-5 pl-6 italic text-slate-300 mb-8 rounded-r-xl border-y border-r border-slate-800/40; }
   .markdown-body strong { @apply text-slate-100 font-bold; }
+  .markdown-body hr { @apply border-slate-800 my-10; }
 </style>

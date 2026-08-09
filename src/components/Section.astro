@@ -1,13 +1,24 @@
 ---
 interface Props {
   title: string;
+  subtitle?: string;
   id?: string;
 }
-const { title, id } = Astro.props;
+const { title, subtitle, id } = Astro.props;
 ---
-<section id={id} class="py-16 md:py-24">
-  <h2 class="text-3xl font-bold mb-10 text-slate-50 border-b-2 border-emerald-500/30 pb-3 inline-block">
-    {title}
-  </h2>
+<section id={id} class="py-16 md:py-24 scroll-mt-24">
+  <div class="mb-10 md:mb-12">
+    <div class="flex items-center gap-3 mb-2">
+      <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 shadow-sm shadow-emerald-500"></span>
+      <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-100 tracking-tight">
+        {title}
+      </h2>
+    </div>
+    {subtitle && (
+      <p class="text-slate-400 text-base max-w-2xl font-normal ml-5">
+        {subtitle}
+      </p>
+    )}
+  </div>
   <slot />
 </section>
