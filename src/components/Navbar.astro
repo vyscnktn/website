@@ -4,7 +4,7 @@
   <div class="max-w-6xl mx-auto px-6 md:px-8 h-20 flex items-center justify-between">
     
     <!-- Logo & Monogram -->
-    <a href="/" class="flex items-center gap-3 group">
+    <a href="/" class="flex items-center gap-3 group focus-visible:ring-2 focus-visible:ring-emerald-400 rounded-xl p-1">
       <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-emerald-500 to-teal-400 p-[1px] shadow-lg shadow-emerald-500/20 group-hover:scale-105 transition-transform duration-300">
         <div class="w-full h-full bg-slate-950 rounded-[11px] flex items-center justify-center font-extrabold text-emerald-400 text-base tracking-tighter">
           VK
@@ -18,9 +18,9 @@
 
     <!-- Desktop Nav Links -->
     <nav class="hidden md:flex items-center gap-8 text-sm font-semibold text-slate-300">
-      <a href="/#guides" class="hover:text-emerald-400 transition-colors py-1">Rehberler</a>
-      <a href="/#projects" class="hover:text-emerald-400 transition-colors py-1">Projeler</a>
-      <a href="/#about" class="hover:text-emerald-400 transition-colors py-1">Hakkımda</a>
+      <a href="/#guides" class="hover:text-emerald-400 transition-colors py-1 focus-visible:ring-2 focus-visible:ring-emerald-400 rounded-lg px-2">Rehberler</a>
+      <a href="/#projects" class="hover:text-emerald-400 transition-colors py-1 focus-visible:ring-2 focus-visible:ring-emerald-400 rounded-lg px-2">Projeler</a>
+      <a href="/#about" class="hover:text-emerald-400 transition-colors py-1 focus-visible:ring-2 focus-visible:ring-emerald-400 rounded-lg px-2">Hakkımda</a>
     </nav>
 
     <!-- Status & CTA -->
@@ -35,7 +35,12 @@
     </div>
 
     <!-- Mobile Menu Button -->
-    <button id="mobile-menu-btn" aria-label="Menüyü Aç/Kapat" class="md:hidden text-slate-300 hover:text-white p-2 focus:outline-none">
+    <button 
+      id="mobile-menu-btn" 
+      aria-label="Menüyü Aç/Kapat" 
+      aria-expanded="false"
+      class="md:hidden text-slate-300 hover:text-white p-2 rounded-lg focus-visible:ring-2 focus-visible:ring-emerald-400"
+    >
       <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path id="menu-icon" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
       </svg>
@@ -64,7 +69,8 @@
   const menu = document.getElementById('mobile-menu');
   if (btn && menu) {
     btn.addEventListener('click', () => {
-      menu.classList.toggle('hidden');
+      const isHidden = menu.classList.toggle('hidden');
+      btn.setAttribute('aria-expanded', String(!isHidden));
     });
   }
 </script>
