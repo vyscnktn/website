@@ -8,7 +8,9 @@ const projectsCollection = defineCollection({
     description: z.string(),
     techs: z.array(z.string()),
     githubUrl: z.string().url(),
+    demoUrl: z.string().url().optional(),
     featured: z.boolean().default(false),
+    status: z.string().optional(),
   }),
 });
 
@@ -19,6 +21,7 @@ const guidesCollection = defineCollection({
     description: z.string(),
     category: z.string(),
     date: z.date(),
+    readTime: z.string().default('5 dk okuma'),
     featured: z.boolean().default(false),
   }),
 });
@@ -27,3 +30,4 @@ export const collections = {
   projects: projectsCollection,
   guides: guidesCollection,
 };
+

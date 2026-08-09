@@ -1,6 +1,7 @@
 ---
 import { Image } from 'astro:assets';
 import profilImage from '../assets/profil.jpg'; 
+import CopyEmailButton from './CopyEmailButton.astro';
 ---
 <section class="min-h-[80vh] flex flex-col-reverse md:flex-row items-center justify-between py-16 md:py-24 gap-12 relative">
   
@@ -41,6 +42,8 @@ import profilImage from '../assets/profil.jpg';
         <span>Projeleri İncele</span>
         <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
       </a>
+
+      <CopyEmailButton variant="glass" />
     </div>
 
     <!-- Quick Tech Badge Strip -->

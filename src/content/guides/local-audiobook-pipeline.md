@@ -3,6 +3,7 @@ title: "Rehber: Local Audiobook Pipeline Kurulumu ve Mimarisi"
 description: "Bulut maliyetlerini sıfırlayan, tüketici donanımlarında kesintisiz çalışabilen yerel TTS (Metinden Sese) sesli kitap ardışık düzeni."
 category: "AI Araçları"
 date: 2026-08-03
+readTime: "7 dk okuma"
 featured: true
 ---
 

@@ -1,8 +1,9 @@
 ---
-title: "Local Audiobook Pipeline"
-description: "An automated pipeline for generating audiobooks locally, powering the Vocal Verse Publishing workflow."
-techs: ["Python", "CUDA", "Chatterbox", "AI"]
+title: "Local Audiobook Generation Pipeline"
+description: "An end-to-end automated pipeline for generating studio-quality audiobooks on local GPU hardware, powering Vocal Verse Publishing."
+techs: ["Python", "PyTorch", "CUDA", "TTS / Speech Synthesis"]
 githubUrl: "https://github.com/vyscnktn/local-audiobook-pipeline"
 featured: true
+status: "Active Dev"
 ---
 This project automates the conversion of text into high-quality audiobooks entirely on local hardware, avoiding cloud API costs.

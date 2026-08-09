@@ -4,8 +4,9 @@ interface Props {
   description: string;
   category: string;
   slug: string;
+  readTime?: string;
 }
-const { title, description, category, slug } = Astro.props;
+const { title, description, category, slug, readTime = "5 dk okuma" } = Astro.props;
 ---
 <a href={`/guides/${slug}`} class="block group h-full">
   <div class="glass-card p-6 md:p-7 rounded-2xl transition-all duration-300 h-full flex flex-col justify-between hover:-translate-y-1 relative overflow-hidden">
@@ -19,7 +20,7 @@ const { title, description, category, slug } = Astro.props;
         </span>
         <span class="text-xs text-slate-400 font-mono flex items-center gap-1">
           <svg class="w-3.5 h-3.5 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-          5 dk okuma
+          {readTime}
         </span>
       </div>
 
