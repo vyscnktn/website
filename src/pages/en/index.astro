@@ -11,16 +11,15 @@ import { useTranslations } from '../../i18n/ui';
 const lang = 'en';
 const t = useTranslations(lang);
 
-// Filter content collections by lang === 'en'
+// Fetch, filter by lang === 'en', and sort dynamically by date descending
 const allGuides = await getCollection('guides');
 const featuredGuides = allGuides
-  .filter(guide => (guide.data.lang || 'tr') === 'en' && guide.data.featured)
-  .slice(0, 3);
+  .filter(guide => (guide.data.lang || 'tr') === 'en')
+  .sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime());
 
 const allProjects = await getCollection('projects');
 const featuredProjects = allProjects
-  .filter(project => (project.data.lang || 'tr') === 'en' && project.data.featured)
-  .slice(0, 3);
+  .filter(project => (project.data.lang || 'tr') === 'en');
 ---
 
 <Layout 
