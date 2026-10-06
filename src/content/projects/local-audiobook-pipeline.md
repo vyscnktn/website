@@ -5,6 +5,7 @@ techs: ["Python", "PyTorch", "CUDA", "TTS / Speech Synthesis"]
 githubUrl: "https://github.com/vyscnktn/local-audiobook-pipeline"
 featured: true
 status: "Active Dev"
+order: 3
 lang: "tr"
 ---
 This project automates the conversion of text into high-quality audiobooks entirely on local hardware, avoiding cloud API costs.

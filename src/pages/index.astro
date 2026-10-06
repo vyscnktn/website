@@ -19,7 +19,8 @@ const featuredGuides = allGuides
 
 const allProjects = await getCollection('projects');
 const featuredProjects = allProjects
-  .filter(project => (project.data.lang || 'tr') === 'tr');
+  .filter(project => (project.data.lang || 'tr') === 'tr')
+  .sort((a, b) => (a.data.order ?? 99) - (b.data.order ?? 99));
 ---
 
 <Layout 
@@ -58,7 +59,7 @@ const featuredProjects = allProjects
       title={t('section.projectsTitle')}
       subtitle={t('section.projectsSubtitle')}
     >
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {featuredProjects.map(project => (
           <ProjectCard 
             title={project.data.title}

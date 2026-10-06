@@ -11,6 +11,7 @@ const projectsCollection = defineCollection({
     demoUrl: z.string().url().optional(),
     featured: z.boolean().default(false),
     status: z.string().optional(),
+    order: z.number().optional(),
     lang: z.enum(['tr', 'en']).default('tr'),
   }),
 });
