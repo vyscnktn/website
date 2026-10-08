@@ -2,26 +2,51 @@
 import Navbar from '../components/Navbar.astro';
 import Footer from '../components/Footer.astro';
 import '../styles/global.css';
+import type { Lang } from '../i18n/ui';
 
 interface Props {
   title?: string;
   description?: string;
   image?: string;
-  lang?: 'tr' | 'en';
+  lang?: Lang;
 }
 
 const {
-  title = "Veysi Can Keten | Yapay Zeka & Bulut Mimarı",
-  description = "Yapay zeka sistemleri, bulut mimarileri ve açık kaynak yazılımlar üzerine teknik rehberler ve projeler.",
+  title = "Veysi Can Keten | AI & Cloud Systems Architect",
+  description = "Technical guides, AI architectures, and open-source system blueprints.",
   image = "/favicon.svg",
-  lang = "tr"
+  lang = "en"
 } = Astro.props;
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://vyscnktn.com');
 
+// Calculate clean path without language prefix for hreflang
+let cleanPath = Astro.url.pathname;
+if (cleanPath.startsWith('/de/')) {
+  cleanPath = cleanPath.slice(3);
+} else if (cleanPath === '/de') {
+  cleanPath = '/';
+} else if (cleanPath.startsWith('/tr/')) {
+  cleanPath = cleanPath.slice(3);
+} else if (cleanPath === '/tr') {
+  cleanPath = '/';
+} else if (cleanPath.startsWith('/en/')) {
+  cleanPath = cleanPath.slice(3);
+} else if (cleanPath === '/en') {
+  cleanPath = '/';
+}
+if (!cleanPath.startsWith('/')) cleanPath = '/' + cleanPath;
+
 // Alternate URLs for i18n hreflang
-const alternateTr = new URL('/', canonicalURL.origin);
-const alternateEn = new URL('/en', canonicalURL.origin);
+const alternateEn = new URL(cleanPath, canonicalURL.origin);
+const alternateDe = new URL(cleanPath === '/' ? '/de' : `/de${cleanPath}`, canonicalURL.origin);
+const alternateTr = new URL(cleanPath === '/' ? '/tr' : `/tr${cleanPath}`, canonicalURL.origin);
+
+const jobTitles: Record<Lang, string> = {
+  en: "AI Architecture & Cloud Systems Student",
+  de: "Informatikstudent & Systemarchitekt für KI und Cloud",
+  tr: "Yapay Zeka & Bulut Sistemleri Öğrencisi"
+};
 
 // Schema.org JSON-LD Person & WebSite
 const personSchema = JSON.stringify({
@@ -29,7 +54,7 @@ const personSchema = JSON.stringify({
   "@type": "Person",
   "name": "Veysi Can Keten",
   "url": canonicalURL.origin,
-  "jobTitle": lang === 'en' ? "AI Architecture & Cloud Systems Student" : "Yapay Zeka & Bulut Sistemleri Öğrencisi",
+  "jobTitle": jobTitles[lang] || jobTitles.en,
   "description": description,
   "sameAs": [
     "https://github.com/vyscnktn",
@@ -60,9 +85,10 @@ const websiteSchema = JSON.stringify({
 
     <!-- Canonical & hreflang URLs -->
     <link rel="canonical" href={canonicalURL} />
-    <link rel="alternate" hreflang="tr" href={alternateTr} />
     <link rel="alternate" hreflang="en" href={alternateEn} />
-    <link rel="alternate" hreflang="x-default" href={alternateTr} />
+    <link rel="alternate" hreflang="de" href={alternateDe} />
+    <link rel="alternate" hreflang="tr" href={alternateTr} />
+    <link rel="alternate" hreflang="x-default" href={alternateEn} />
 
     <!-- Primary Meta Tags -->
     <title>{title}</title>

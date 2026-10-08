@@ -15,5 +15,11 @@ export default defineConfig({
   integrations: [
     mdx(),
     sitemap()
-  ]
+  ],
+
+  redirects: {
+    '/en': '/',
+    '/en/guides/[id]': '/guides/[id]',
+    '/en/rss.xml': '/rss.xml',
+  }
 });

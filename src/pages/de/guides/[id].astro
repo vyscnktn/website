@@ -1,32 +1,34 @@
 ---
 import { getCollection, render } from 'astro:content';
 import Layout from '../../../layouts/Layout.astro';
+import { getCleanSlug, useTranslations } from '../../../i18n/ui';
 
-// 1. Fetch English guides and build routes
+// 1. Fetch German guides and build routes
 export async function getStaticPaths() {
   const guides = await getCollection('guides');
-  const enGuides = guides.filter(guide => (guide.data.lang || 'tr') === 'en');
-  return enGuides.map(guide => ({
-    params: { id: guide.id.replace('-en', '') },
+  const deGuides = guides.filter(guide => guide.data.lang === 'de');
+  return deGuides.map(guide => ({
+    params: { id: getCleanSlug(guide.id) },
     props: { guide },
   }));
 }
 
 const { guide } = Astro.props;
 const { Content } = await render(guide);
+const t = useTranslations('de');
 ---
 
 <Layout 
-  lang="en"
+  lang="de"
   title={`${guide.data.title} | Veysi Can Keten`}
   description={guide.data.description}
 >
   <div class="max-w-4xl mx-auto px-6 py-12 md:py-20">
     
     <!-- Back to Guides Button -->
-    <a href="/en#guides" class="text-emerald-400 hover:text-emerald-300 mb-10 inline-flex items-center gap-2 transition-colors font-semibold group">
+    <a href="/de#guides" class="text-emerald-400 hover:text-emerald-300 mb-10 inline-flex items-center gap-2 transition-colors font-semibold group">
       <svg class="w-5 h-5 group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
-      Back to All Guides
+      {t('guide.back')}
     </a>
     
     <!-- Guide Header -->
@@ -36,7 +38,7 @@ const { Content } = await render(guide);
           {guide.data.category}
         </span>
         <span class="text-xs text-slate-400 font-mono">
-          {new Date(guide.data.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+          {new Date(guide.data.date).toLocaleDateString('de-DE', { year: 'numeric', month: 'long', day: 'numeric' })}
         </span>
       </div>
 

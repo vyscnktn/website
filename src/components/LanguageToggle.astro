@@ -1,26 +1,40 @@
 ---
+import type { Lang } from '../i18n/ui';
+
 interface Props {
-  currentLang?: 'tr' | 'en';
+  currentLang?: Lang;
 }
 
-const { currentLang = 'tr' } = Astro.props;
+const { currentLang = 'en' } = Astro.props;
+const pathname = Astro.url.pathname;
 
-const trUrl = '/';
-const enUrl = '/en';
+// Calculate clean path without language prefix (/de or /tr or /en)
+let cleanPath = pathname;
+if (cleanPath.startsWith('/de/')) {
+  cleanPath = cleanPath.slice(3);
+} else if (cleanPath === '/de') {
+  cleanPath = '/';
+} else if (cleanPath.startsWith('/tr/')) {
+  cleanPath = cleanPath.slice(3);
+} else if (cleanPath === '/tr') {
+  cleanPath = '/';
+} else if (cleanPath.startsWith('/en/')) {
+  cleanPath = cleanPath.slice(3);
+} else if (cleanPath === '/en') {
+  cleanPath = '/';
+}
+
+if (!cleanPath.startsWith('/')) {
+  cleanPath = '/' + cleanPath;
+}
+
+// Normalize trailing slash if needed (preserve clean path)
+const enUrl = cleanPath;
+const deUrl = cleanPath === '/' ? '/de' : `/de${cleanPath}`;
+const trUrl = cleanPath === '/' ? '/tr' : `/tr${cleanPath}`;
 ---
 
 <div class="inline-flex items-center p-1 rounded-xl glass-card border border-slate-800 text-xs font-mono font-bold">
-  <a 
-    href={trUrl} 
-    class={`px-2.5 py-1 rounded-lg transition-all duration-200 ${
-      currentLang === 'tr' 
-        ? 'bg-emerald-500 text-slate-950 shadow-md shadow-emerald-500/20' 
-        : 'text-slate-400 hover:text-slate-100'
-    }`}
-    aria-label="Türkçe Dilini Seç"
-  >
-    TR
-  </a>
   <a 
     href={enUrl} 
     class={`px-2.5 py-1 rounded-lg transition-all duration-200 ${
@@ -28,8 +42,30 @@ const enUrl = '/en';
         ? 'bg-emerald-500 text-slate-950 shadow-md shadow-emerald-500/20' 
         : 'text-slate-400 hover:text-slate-100'
     }`}
-    aria-label="Select English Language"
+    aria-label="Switch to English"
   >
     EN
+  </a>
+  <a 
+    href={deUrl} 
+    class={`px-2.5 py-1 rounded-lg transition-all duration-200 ${
+      currentLang === 'de' 
+        ? 'bg-emerald-500 text-slate-950 shadow-md shadow-emerald-500/20' 
+        : 'text-slate-400 hover:text-slate-100'
+    }`}
+    aria-label="Auf Deutsch wechseln"
+  >
+    DE
+  </a>
+  <a 
+    href={trUrl} 
+    class={`px-2.5 py-1 rounded-lg transition-all duration-200 ${
+      currentLang === 'tr' 
+        ? 'bg-emerald-500 text-slate-950 shadow-md shadow-emerald-500/20' 
+        : 'text-slate-400 hover:text-slate-100'
+    }`}
+    aria-label="Türkçe diline geç"
+  >
+    TR
   </a>
 </div>

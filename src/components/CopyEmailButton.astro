@@ -1,12 +1,12 @@
 ---
-import { useTranslations } from '../i18n/ui';
+import { useTranslations, type Lang } from '../i18n/ui';
 
 interface Props {
   email?: string;
   variant?: 'primary' | 'secondary' | 'glass';
-  lang?: 'tr' | 'en';
+  lang?: Lang;
 }
-const { email = "veysicanketen@gmail.com", variant = "glass", lang = "tr" } = Astro.props;
+const { email = "veysicanketen@gmail.com", variant = "glass", lang = "en" } = Astro.props;
 const t = useTranslations(lang);
 
 const baseStyles = "relative inline-flex items-center gap-2 px-5 py-2.5 rounded-xl font-semibold text-sm transition-all duration-300 group cursor-pointer";

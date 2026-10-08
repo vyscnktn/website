@@ -1,32 +1,32 @@
 ---
 import { getCollection } from 'astro:content';
-import Layout from '../layouts/Layout.astro';
-import Hero from '../components/Hero.astro';
-import Section from '../components/Section.astro';
-import GuideCard from '../components/GuideCard.astro';
-import ProjectCard from '../components/ProjectCard.astro';
-import CopyEmailButton from '../components/CopyEmailButton.astro';
-import { useTranslations, getCleanSlug } from '../i18n/ui';
+import Layout from '../../layouts/Layout.astro';
+import Hero from '../../components/Hero.astro';
+import Section from '../../components/Section.astro';
+import GuideCard from '../../components/GuideCard.astro';
+import ProjectCard from '../../components/ProjectCard.astro';
+import CopyEmailButton from '../../components/CopyEmailButton.astro';
+import { useTranslations, getCleanSlug } from '../../i18n/ui';
 
-const lang = 'en';
+const lang = 'tr';
 const t = useTranslations(lang);
 
-// Fetch, filter by lang === 'en', and sort dynamically by date descending
+// İçerikleri çekme, dille filtreleme ve tarihe göre dinamik sıralama işlemleri
 const allGuides = await getCollection('guides');
 const featuredGuides = allGuides
-  .filter(guide => (guide.data.lang || 'en') === 'en')
+  .filter(guide => guide.data.lang === 'tr')
   .sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime());
 
 const allProjects = await getCollection('projects');
 const featuredProjects = allProjects
-  .filter(project => (project.data.lang || 'en') === 'en')
+  .filter(project => project.data.lang === 'tr')
   .sort((a, b) => (a.data.order ?? 99) - (b.data.order ?? 99));
 ---
 
 <Layout 
   lang={lang}
-  title="Veysi Can Keten | AI & Cloud Systems Architect"
-  description="AI tools, cloud infrastructure architectures, and open-source system blueprints."
+  title="Veysi Can Keten | Yapay Zeka & Bulut Mimarı"
+  description="Yapay zeka araçları, bulut mimarileri ve açık kaynak sistem rehberleri."
 >
   <div class="max-w-6xl mx-auto px-6 md:px-8">
     

@@ -1,5 +1,5 @@
 ---
-import { useTranslations } from '../i18n/ui';
+import { useTranslations, type Lang } from '../i18n/ui';
 
 interface Props {
   title: string;
@@ -7,12 +7,12 @@ interface Props {
   category: string;
   slug: string;
   readTime?: string;
-  lang?: 'tr' | 'en';
+  lang?: Lang;
 }
-const { title, description, category, slug, readTime = "5 dk okuma", lang = "tr" } = Astro.props;
+const { title, description, category, slug, readTime = "5 min read", lang = "en" } = Astro.props;
 const t = useTranslations(lang);
 
-const href = lang === 'en' ? `/en/guides/${slug}` : `/guides/${slug}`;
+const href = lang === 'en' ? `/guides/${slug}` : `/${lang}/guides/${slug}`;
 ---
 <a href={href} class="block group h-full">
   <div class="glass-card p-6 md:p-7 rounded-2xl transition-all duration-300 h-full flex flex-col justify-between hover:-translate-y-1 relative overflow-hidden">

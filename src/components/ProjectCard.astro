@@ -1,5 +1,5 @@
 ---
-import { useTranslations } from '../i18n/ui';
+import { useTranslations, type Lang } from '../i18n/ui';
 
 interface Props {
   title: string;
@@ -8,9 +8,9 @@ interface Props {
   githubUrl: string;
   demoUrl?: string;
   status?: string;
-  lang?: 'tr' | 'en';
+  lang?: Lang;
 }
-const { title, description, techs, githubUrl, demoUrl, status, lang = 'tr' } = Astro.props;
+const { title, description, techs, githubUrl, demoUrl, status, lang = 'en' } = Astro.props;
 const t = useTranslations(lang);
 ---
 <div class="glass-card p-6 md:p-8 rounded-2xl transition-all duration-300 group hover:-translate-y-1 flex flex-col justify-between h-full relative overflow-hidden">

@@ -1,15 +1,15 @@
 ---
 import LanguageToggle from './LanguageToggle.astro';
-import { useTranslations } from '../i18n/ui';
+import { useTranslations, type Lang } from '../i18n/ui';
 
 interface Props {
-  lang?: 'tr' | 'en';
+  lang?: Lang;
 }
 
-const { lang = 'tr' } = Astro.props;
+const { lang = 'en' } = Astro.props;
 const t = useTranslations(lang);
 
-const homePath = lang === 'en' ? '/en' : '/';
+const homePath = lang === 'en' ? '/' : `/${lang}`;
 const guidesHref = `${homePath}#guides`;
 const projectsHref = `${homePath}#projects`;
 const aboutHref = `${homePath}#about`;

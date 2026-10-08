@@ -12,7 +12,7 @@ const projectsCollection = defineCollection({
     featured: z.boolean().default(false),
     status: z.string().optional(),
     order: z.number().optional(),
-    lang: z.enum(['tr', 'en']).default('tr'),
+    lang: z.enum(['en', 'de', 'tr']).default('en'),
   }),
 });
 
@@ -23,9 +23,9 @@ const guidesCollection = defineCollection({
     description: z.string(),
     category: z.string(),
     date: z.date(),
-    readTime: z.string().default('5 dk okuma'),
+    readTime: z.string().default('5 min read'),
     featured: z.boolean().default(false),
-    lang: z.enum(['tr', 'en']).default('tr'),
+    lang: z.enum(['en', 'de', 'tr']).default('en'),
   }),
 });
 
